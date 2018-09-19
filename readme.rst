@@ -26,4 +26,5 @@ config.json content:
         "wifi_pass" : "your_wifi_password",
     }
 
+    usign automatic credits.
 ####
