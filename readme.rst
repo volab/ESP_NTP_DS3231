@@ -26,5 +26,9 @@ config.json content:
         "wifi_pass" : "your_wifi_password",
     }
 
-    usign automatic credits.
+ In this first release there is 4 serial commands:
+<N> to display NTP time
+<D> to display DS3231 time
+<2> to diaplay both times
+<S> to set DS3231 time with NTP time
 ####
