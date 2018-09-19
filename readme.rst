@@ -19,9 +19,11 @@ To use it you need to creat a config.json file in the data directory of the ARDU
 See https://www.instructables.com/id/Using-ESP8266-SPIFFS/
 
 config.json content:
-{
-    "wifi_login" : "your_ssid",
-    "wifi_pass" : "your_wifi_password",
-}
+::
+
+    {
+        "wifi_login" : "your_ssid",
+        "wifi_pass" : "your_wifi_password",
+    }
 
 ####
