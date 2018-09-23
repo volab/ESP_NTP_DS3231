@@ -26,9 +26,30 @@ config.json content:
         "wifi_pass" : "your_wifi_password",
     }
 
- In this first release there is 4 serial commands:
+
+In this release this is serial commands:
+
 <N> to display NTP time
+
 <D> to display DS3231 time
+
 <2> to diaplay both times
+
 <S> to set DS3231 time with NTP time
+
+<V> to display compile time
+
+<e> to introduice a 15s delta time between 2 clocks
+
+<d> to display epoc delta time between 2 clocks
+
+<T> for LED test
+
+<O> to turn RGB LEDs off
+
+<o> to turn RGB LEDs on
+
+We also add LED and button features to operate without a PC only need a 5V usb poower supply.
+
+Shortly printable case 3D design...
 ####
