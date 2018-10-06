@@ -4,7 +4,8 @@ Informations générales sur le projet ESP_NTP_DS3231
 
 :Auteur:             Major LEE
 :Projet:             ESP_NTP_DS3231
-:Version:            20180919
+:Version:            20181005
+:Projet:             A venir sur le `wiki du VoLAB <http://www.vorobotics.com/wiki/index.php?title=Nos_Projets>`_
 :Licence:            CC0
 :Liens:              https://creativecommons.org/licenses/by-nc-sa/4.0/
 
@@ -52,4 +53,4 @@ In this release this is serial commands:
 We also add LED and button features to operate without a PC only need a 5V usb poower supply.
 
 Shortly printable case 3D design...
-####
+
