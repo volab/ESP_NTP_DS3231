@@ -52,5 +52,5 @@ In this release this is serial commands:
 
 We also add LED and button features to operate without a PC only need a 5V usb poower supply.
 
-Shortly printable case 3D design...
+Shortly : printable case 3D design...
 
