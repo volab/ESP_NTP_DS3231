@@ -30,7 +30,7 @@ function prototype
 */
 bool readWifiCredit();
 
-ErrLED wifiLed(D3, D4, D8), dsLed(D5,D6, D0);
+ErrLED wifiLed(D3, D4, D8), dsLed(D6,D5, D0);
 bouton bp;
 
 
@@ -53,7 +53,7 @@ bouton bp;
     // pinMode( WIFISELMODEPIN, INPUT_PULLUP );
     // no more pin available.
     // D1, D2 for I2C
-    // D0, D3, D4, D5, D6, D8 for 2 RGB LEDs
+    // D0, D3, D4, D5, D6, D8 for 2 RGB LEDs..
     // D7 for bp
     // A0 ? can bu used for a BP or switch ? may be
     // wifi_connection_mode = digitalRead( WIFISELMODEPIN );
@@ -80,7 +80,10 @@ bouton bp;
             DEBUGPORT.println( "<VoLAB> Wifi is connected ? " +  String(WiFi.isConnected()?"Yes":"No") );
             DEBUGPORT.println("<VoLAB> SSID = " + WiFi.SSID() );
             wifiLed.ok();
-        } 
+        } else {
+            errNTPinit = true;
+            wifiLed.error();
+        }
     } else {
         //use Wifi_manager and its access point
         // TODO - 15/09/18
@@ -129,13 +132,22 @@ bouton bp;
         if (!errNTPinit){
             DEBUGPORT.println( "<VoLAB> NTP time " + timeClient.getFormattedTime() );
             DEBUGPORT.println( "<VoLAB> NTP epoc Time " + (String)timeClient.getEpochTime() );
+            if ( timeZone == 1)
+                DEBUGPORT.println(F( "<VoLAB> Warning Paris winter time" ));
+            else
+                DEBUGPORT.println(F( "<VoLAB> Warning Paris Summer time" ));
             if ( !errRTCinit )
             DEBUGPORT.println( "<VoLAB> epoc Time from DS3231 " + (String)rtc.now().unixtime() );
         } else {
             DEBUGPORT.println(F("<JSO> ERR : NTP init error"));
             wifiLed.error();
         }         
-    } 
+    }
+    if (!errNTPinit && !errRTCinit){
+        long delta = timeClient.getEpochTime() - rtc.now().unixtime();
+        DEBUGPORT.println( "<VoLAB> Delta time : "+ String(delta) );
+        if ( abs( delta ) > 10 ) dsLed.warning(); else dsLed.ok();
+    }    
     bp.begin( D7 );
 }
  
@@ -305,12 +317,33 @@ bool readWifiCredit(){
                 configFile.close();
                 return true;
             }
+        } else {
+            DEBUGPORT.println(F("<VoLAB reading wifi credit.> failed to open /config.json"));
+            return false;
         }
+            
     } else {
         DEBUGPORT.println(F("<VoLAB reading wifi credit.> failed to mount FS"));
         return false; 
     }
  }
  
-
- 
+/*
+int adjustDstEurope()
+{
+ // last sunday of march
+ int beginDSTDate=  (31 - (5* year() /4 + 4) % 7);
+ Serial.println(beginDSTDate);
+ int beginDSTMonth=3;
+ //last sunday of october
+ int endDSTDate= (31 - (5 * year() /4 + 1) % 7);
+ Serial.println(endDSTDate);
+ int endDSTMonth=10;
+ // DST is valid as:
+ if (((month() > beginDSTMonth) && (month() < endDSTMonth))
+     || ((month() == beginDSTMonth) && (day() >= beginDSTDate))
+     || ((month() == endDSTMonth) && (day() <= endDSTDate)))
+ return 7200;  // DST europe = utc +2 hour
+ else return 3600; // nonDST europe = utc +1 hour
+}
+ */
