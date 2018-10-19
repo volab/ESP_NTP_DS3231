@@ -50,7 +50,7 @@ In this release this is serial commands:
 
 <o> to turn RGB LEDs on
 
-We also add LED and button features to operate without a PC only need a 5V usb poower supply.
+We also add LED and button features to operate without a PC only need a 5V usb power supply.
 
 Shortly : printable case 3D design...
 

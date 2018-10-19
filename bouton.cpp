@@ -1,3 +1,11 @@
+/**
+* @file bouton.cpp
+* @author J.SORANZO
+* @date 19 Oct 2018
+* @copyright 2018 CC0
+* @brief Classe bouton gére l'appui sur un BP avec clic, longclic et doubleclic
+*/
+
 // le 13/2/2018
 // changement de nom des methodes
 // hasBeenClicked...
@@ -8,32 +16,32 @@ void bouton::begin( int boutonPin ){
     _boutonPin = boutonPin;
     _debutDernierAppui = millis();
     _finDernierAppui = _debutDernierAppui + 1;
-    pinMode(boutonPin, INPUT_PULLUP);  
+    pinMode(boutonPin, INPUT_PULLUP);
     _etat=0;
     _doubleClicked=false;
     _clicked=false;
     _longClicked=false;
     _lastUpdate = millis();
-    _updateSpeed = BUTONSPEED ; // see in config.h    
+    _updateSpeed = BUTONSPEED ; // see in config.h
 }
-    
+
 bool bouton::longClic(){ return _longClicked;  }
 bool bouton::clic(){ return _clicked; }
-bool bouton::doubleClic(){ return _doubleClicked; }  
-  
+bool bouton::doubleClic(){ return _doubleClicked; }
+
 void bouton::acquit(){
     _doubleClicked=false;
     _clicked=false;
     _longClicked=false;
 }
-    
+
 // void bouton::refreshBouton()
 void bouton::update(){
         #ifdef BUTONCLASS_LOOPMODE
 #warning la classe Bouton est en mode loop
     if ( millis() - _lastUpdate < _updateSpeed ) return;
     _lastUpdate = millis();
-    #else 
+    #else
 #warning la classe Bouton est en mode timer
     #endif
     switch (_etat){
@@ -58,7 +66,7 @@ void bouton::update(){
             }
             //detection clique long
             if (digitalRead(_boutonPin)==HIGH \
-                    && millis()>=_debutDernierAppui+800){ 
+                    && millis()>=_debutDernierAppui+800){
                 _etat=0;
                 _longClicked=true; //clic long detected
             }
@@ -73,7 +81,7 @@ void bouton::update(){
                 // }
             // }
             break;
-              
+
         case 2:
             //check if there is a second push in less than 200ms
             if (digitalRead(_boutonPin)==HIGH \
@@ -90,16 +98,14 @@ void bouton::update(){
             }
             break;
 
-        case 5: 
+        case 5:
             //waiting for release buton before returning to state 0
             if (digitalRead(_boutonPin)==HIGH ){
                 _etat=0;
                 _doubleClicked=true;
             }
             break;
-         
+
         }
 
 }
-    
-  
