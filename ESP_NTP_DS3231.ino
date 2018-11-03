@@ -4,8 +4,8 @@
  
  */
 
-int timeZone = 2; // Paris heure d'été
-// int timeZone = 1; // Paris heure d'hiver
+//int timeZone = 2; // Paris heure d'été
+int timeZone = 1; // Paris heure d'hiver
  
 #include "ESP_NTP_DS3231.h"
  
